@@ -1,0 +1,413 @@
+﻿<Window x:Class="Zahard_Cars.Program"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        mc:Ignorable="d"
+        Title="Program" Height="600" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="190"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="bord_menu" Grid.Row="1" Background="#FFDFE0D9">
+            <Button x:Name="btu_home" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Click="btu_home_Click" Margin="0,5">
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="35" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Dashbord" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+
+            <Button x:Name="btu_worker" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Margin="0,5" Click="btu_worker_Click">
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="Worker" Height="30" Width="45" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Workers" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+            <Button x:Name="btu_client" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Margin="0,5" Click="btu_client_Click">
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="People" Height="30" Width="45" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Clients" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+
+            <Button x:Name="btu_car" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Margin="0,5" Click="btu_car_Click" >
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="Car" Height="30" Width="45" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Cars" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+
+            <Button x:Name="btu_order" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Margin="0,5" Click="btu_order_Click" >
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="Paper" Height="30" Width="45" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Orders" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+
+            <Button x:Name="btu_order_add" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Margin="0,5" Click="btu_order_add_Click" >
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="Add" Height="30" Width="45" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Add" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+
+            <Button x:Name="btu_logout" Style="{StaticResource MaterialDesignFlatButton}" Height="30" Margin="0,5" Click="btu_logout_Click" >
+                <WrapPanel Width="190" Height="30" Margin="-15,-5">
+                    <materialDesign:PackIcon Kind="Logout" Height="30" Width="45" Foreground="#023d3b" Margin="0,0"/>
+                    <TextBlock Text="Log Out" Foreground="#023d3b" FontSize="18" Height="21"/>
+                </WrapPanel>
+            </Button>
+        </StackPanel>
+
+
+
+        <Canvas Grid.Column="1" Background="#FFDFE0D9">
+
+            <Button x:Name="btu_Exit" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Canvas.Right="0" Foreground="#023d3b" Click="btu_Exit_Click">
+                <materialDesign:PackIcon Kind="Close" Width="40" Height="40" />
+            </Button>
+
+            <Button x:Name="btu_max" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Canvas.Right="40" Foreground="#023d3b" Click="btu_max_Click">
+                <materialDesign:PackIcon Kind="Maximize" Width="40" Height="40" />
+            </Button>
+
+            <Button x:Name="btu_min" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Canvas.Right="80" Foreground="#023d3b" Click="btu_min_Click">
+                <materialDesign:PackIcon Kind="Minimize" Width="40" Height="40" />
+            </Button>
+
+            <Button x:Name="btu_dark" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Canvas.Right="120" Foreground="#023d3b" Click="btu_dark_Click">
+                <materialDesign:PackIcon Kind="ThemeLightDark" Width="40" Height="40" />
+            </Button>
+        </Canvas>
+
+        <Canvas Grid.Column="0" Background="#FFDFE0D9">
+        </Canvas>
+
+        <Canvas x:Name="can_form" Grid.Column="1" Grid.Row="1" Background="{x:Null}" Loaded="can_form_Loaded" >
+            <lvc:CartesianChart Name="chart" Canvas.Left="522" Canvas.Top="192" Height="276" Width="488" >
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Values="{Binding Values}" 
+                                PointGeometrySize="20" 
+                                PointForeground="White"
+                                Configuration="{Binding Mapper}"/>
+                </lvc:CartesianChart.Series>
+            </lvc:CartesianChart>
+            <materialDesign:ColorZone Mode="Custom" Width="320" Height="152" CornerRadius="30" Canvas.Left="10" Canvas.Top="10">
+                <materialDesign:ColorZone.Background>
+                    <RadialGradientBrush RadiusX="2" RadiusY="2">
+                        <GradientStop Color="#FF023D3B" Offset="0.016"/>
+                        <GradientStop Color="#FF00F5ED" Offset="1"/>
+                    </RadialGradientBrush>
+                </materialDesign:ColorZone.Background>
+                <Canvas>
+                    <TextBlock Text="Total Balance:" Canvas.Left="20" Canvas.Top="10" FontSize="22" Foreground="White" FontFamily="Arial" Width="148"/>
+                    <TextBlock x:Name="ban" Text="" Canvas.Left="20" Canvas.Top="66" FontSize="30" Foreground="White" FontFamily="Arial" Width="290"/>
+                </Canvas>
+            </materialDesign:ColorZone>
+            <materialDesign:ColorZone Mode="Custom" Width="320" Height="152" CornerRadius="30" Canvas.Left="347" Canvas.Top="10">
+                <materialDesign:ColorZone.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2E2E2E" Offset="0.016"/>
+                        <GradientStop Color="Gray" Offset="1"/>
+                    </RadialGradientBrush>
+                </materialDesign:ColorZone.Background>
+
+
+                <Canvas>
+                    <TextBlock Text="Costes:" Canvas.Left="20" Canvas.Top="10" FontSize="22" Foreground="White" FontFamily="Arial" Width="148"/>
+                    <TextBlock x:Name="txt_Taxes" Text="" Canvas.Left="10" Canvas.Top="40" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_maintenance" Text="" Canvas.Left="10" Canvas.Top="59" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_electricity" Text="" Canvas.Left="10" Canvas.Top="78" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_others" Text="" Canvas.Left="10" Canvas.Top="97" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_salary" Text="" Canvas.Left="10" Canvas.Top="116" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                </Canvas>
+            </materialDesign:ColorZone>
+            <materialDesign:ColorZone Mode="Custom"  Width="320" Height="177" CornerRadius="30" Canvas.Left="680" Canvas.Top="10">
+                <materialDesign:ColorZone.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2E2E2E" Offset="0.016"/>
+                        <GradientStop Color="Gray" Offset="1"/>
+                    </RadialGradientBrush>
+                </materialDesign:ColorZone.Background>
+
+                <Canvas>
+                    <TextBlock Text="Info about cars:" Canvas.Left="20" Canvas.Top="10" FontSize="22" Foreground="White" FontFamily="Arial" Width="160"/>
+                    <TextBlock x:Name="txt_count_car" Text="" Canvas.Left="10" Canvas.Top="40" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_count_car_in_order" Text="" Canvas.Left="10" Canvas.Top="59" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_most_car" Text="" Canvas.Left="10" Canvas.Top="78" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="22"/>
+                    <TextBlock x:Name="txt_top_salary" Text="" Canvas.Left="10" Canvas.Top="142" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="25"/>
+                    <TextBlock x:Name="txt_count_worker" Text="" Canvas.Left="10" Canvas.Top="100" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="14"/>
+                    <TextBlock x:Name="txt_worst_salary" Text="" Canvas.Left="10" Canvas.Top="117" FontSize="15" Foreground="White" FontFamily="Arial" Width="290" Height="25"/>
+
+                </Canvas>
+            </materialDesign:ColorZone>
+            <!--<materialDesign:ColorZone Mode="Custom"  Width="320" Height="134" CornerRadius="30" Canvas.Left="1143" Canvas.Top="132">
+                <materialDesign:ColorZone.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2E2E2E" Offset="0.016"/>
+                        <GradientStop Color="Gray" Offset="1"/>
+                    </RadialGradientBrush>
+                </materialDesign:ColorZone.Background>
+
+                <Canvas>
+                    <TextBlock Text="Info about Workers:" Canvas.Left="20" Canvas.Top="10" FontSize="22" Foreground="White" FontFamily="Arial" Width="202"/>
+                </Canvas>
+            </materialDesign:ColorZone>-->
+            <lvc:CartesianChart x:Name="chart1" Canvas.Left="10" Canvas.Top="192" Height="276" Width="488" >
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Values="{Binding Values1}" 
+                        PointGeometrySize="20" 
+                        PointForeground="White"
+                        Configuration="{Binding Mapper}"/>
+                </lvc:CartesianChart.Series>
+            </lvc:CartesianChart>
+        </Canvas>
+        <Canvas x:Name="can_Workers" Grid.Row="1" Grid.Column="1" Loaded="can_Workers_Loaded" Visibility="Hidden">
+            <TextBlock Width="68" Height="27" Text="Filter By:" FontSize="18" Canvas.Left="10" Canvas.Top="194" />
+            <TextBox x:Name="text_search" Width="131" Height="31"  BorderBrush="{DynamicResource MaterialDesignDivider}" FontSize="15" Canvas.Left="83" Canvas.Top="191" BorderThickness="2" TextChanged="text_search_TextChanged" />
+
+
+            <TextBlock Text="Name:" FontSize="30" FontFamily="Arial" Canvas.Left="20" Canvas.Top="30" />
+            <TextBox x:Name="txt_worker_name" FontSize="25" Width="250" Height="40" Canvas.Left="113" Canvas.Top="24" />
+
+            <TextBlock Text="Email:" FontSize="30" FontFamily="Arial" Canvas.Left="20" Canvas.Top="98" />
+            <TextBox x:Name="txt_worker_email" FontSize="25" Width="250" Height="40" Canvas.Left="113" Canvas.Top="92" />
+
+            <TextBlock Text="Phone:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="30" />
+            <TextBox x:Name="txt_worker_phone" FontSize="25" Width="250" Height="35" Canvas.Left="529" Canvas.Top="24" />
+
+            <TextBlock Text="Salary:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="98" />
+            <TextBox x:Name="txt_worker_salary" FontSize="25" Width="250" Height="35" Canvas.Left="527" Canvas.Top="92" />
+
+            <TextBlock Text="ID:" FontSize="30" FontFamily="Arial" Canvas.Left="802" Canvas.Top="30" />
+            <TextBox x:Name="txt_worker_ID" FontSize="25" Width="155" Height="35" Canvas.Left="845" Canvas.Top="24" IsReadOnly="True"/>
+
+
+            <Button x:Name="button_add_worker" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Add worker"
+                Background="#023d3b" Foreground="White" Canvas.Left="248"  Canvas.Top="191" Click="button_add_worker_Click"    />
+
+            <Button x:Name="button_edit_worker" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Edit worker"
+                Background="#023d3b" Foreground="White" Canvas.Left="434"  Canvas.Top="191" Click="button_edit_worker_Click"    />
+
+            <Button x:Name="button_delete_worker" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Delet worker"
+                Background="#023d3b" Foreground="White" Canvas.Left="619"  Canvas.Top="191" Click="button_delete_worker_Click"    />
+
+            <Button x:Name="button_clear_worker" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Clear"
+                Background="#023d3b" Foreground="White" Canvas.Left="802"  Canvas.Top="194" Click="button_clear_worker_Click"    />
+
+            <DataGrid x:Name="data_workers" Height="334" Canvas.Top="226" Width="1010" IsReadOnly="True"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnWidth="*"  AutoGenerateColumns="False" SelectionChanged="data_workers_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Worker_id}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Worker_name}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Phone" Width="160.0" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Salary" Binding="{Binding Salary}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Canvas>
+
+        <Canvas x:Name="can_client" Grid.Row="1" Grid.Column="1" Loaded="can_client_Loaded" Visibility="Hidden">
+            <TextBlock Width="68" Height="27" Text="Filter By:" FontSize="18" Canvas.Left="10" Canvas.Top="194" />
+            <TextBox x:Name="text_search_client" Width="131" Height="31"  BorderBrush="{DynamicResource MaterialDesignDivider}" FontSize="15" Canvas.Left="83" Canvas.Top="191" BorderThickness="2" TextChanged="text_search_ckient_TextChanged" />
+
+
+            <TextBlock Text="Name:" FontSize="30" FontFamily="Arial" Canvas.Left="20" Canvas.Top="30" />
+            <TextBox x:Name="txt_client_name" FontSize="25" Width="250" Height="40" Canvas.Left="113" Canvas.Top="24" />
+
+            <TextBlock Text="Email:" FontSize="30" FontFamily="Arial" Canvas.Left="20" Canvas.Top="98" />
+            <TextBox x:Name="txt_client_email" FontSize="25" Width="250" Height="40" Canvas.Left="113" Canvas.Top="92" />
+
+            <TextBlock Text="Phone:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="30" />
+            <TextBox x:Name="txt_client_phone" FontSize="25" Width="250" Height="35" Canvas.Left="529" Canvas.Top="24" />
+
+            <TextBlock Text="Adress:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="98" />
+            <TextBox x:Name="txt_client_adress" FontSize="25" Width="250" Height="35" Canvas.Left="541" Canvas.Top="92" />
+
+            <TextBlock Text="ID:" FontSize="30" FontFamily="Arial" Canvas.Left="802" Canvas.Top="30" />
+            <TextBox x:Name="txt_client_ID" FontSize="25" Width="155" Height="35" Canvas.Left="845" Canvas.Top="24" IsReadOnly="True"/>
+
+            <Button x:Name="button_add_client" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Add client"
+                Background="#023d3b" Foreground="White" Canvas.Left="248"  Canvas.Top="191" Click="button_add_client_Click"    />
+
+            <Button x:Name="button_edit_client" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Edit client"
+                Background="#023d3b" Foreground="White" Canvas.Left="434"  Canvas.Top="191" Click="button_edit_client_Click"    />
+
+            <Button x:Name="button_delete_client" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Delet client"
+                Background="#023d3b" Foreground="White" Canvas.Left="619"  Canvas.Top="191" Click="button_delete_client_Click"    />
+
+            <Button x:Name="button_clear_client" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Clear"
+                Background="#023d3b" Foreground="White" Canvas.Left="802"  Canvas.Top="194" Click="button_clear_client_Click"    />
+
+
+            <DataGrid x:Name="data_client" Height="334" Canvas.Top="226" Width="1010" IsReadOnly="True"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnWidth="*"  AutoGenerateColumns="False" SelectionChanged="data_client_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding id}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Client_name}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Phone" Width="160.0" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Adress" Binding="{Binding Adress}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Canvas>
+
+        <Canvas x:Name="can_cars" Grid.Row="1" Grid.Column="1" Loaded="can_cars_Loaded" Visibility="Hidden">
+            <TextBlock Width="68" Height="27" Text="Filter By:" FontSize="18" Canvas.Left="10" Canvas.Top="194" />
+            <TextBox x:Name="text_search_cars" Width="131" Height="31"  BorderBrush="{DynamicResource MaterialDesignDivider}" FontSize="15" Canvas.Left="83" Canvas.Top="191" BorderThickness="2" TextChanged="text_search_cars_TextChanged" />
+
+
+            <TextBlock Text="Name:" FontSize="30" FontFamily="Arial" Canvas.Left="20" Canvas.Top="30" />
+            <TextBox x:Name="txt_cars_name" FontSize="25" Width="250" Height="40" Canvas.Left="113" Canvas.Top="24" />
+
+            <TextBlock Text="Model:" FontSize="30" FontFamily="Arial" Canvas.Left="20" Canvas.Top="98" />
+            <TextBox x:Name="txt_cars_color" FontSize="25" Width="250" Height="40" Canvas.Left="113" Canvas.Top="92" />
+
+            <TextBlock Text="Color:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="30" />
+            <TextBox x:Name="txt_cars_model" FontSize="25" Width="250" Height="35" Canvas.Left="529" Canvas.Top="24" />
+
+            <TextBlock Text="ID:" FontSize="30" FontFamily="Arial" Canvas.Left="802" Canvas.Top="30" />
+            <TextBox x:Name="txt_cars_ID" FontSize="25" Width="155" Height="35" Canvas.Left="845" Canvas.Top="24" />
+
+            <Button x:Name="button_add_cars" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Add cars"
+                Background="#023d3b" Foreground="White" Canvas.Left="248"  Canvas.Top="191" Click="button_add_cars_Click"    />
+
+            <Button x:Name="button_edit_cars" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Edit cars"
+                Background="#023d3b" Foreground="White" Canvas.Left="434"  Canvas.Top="191" Click="button_edit_cars_Click"    />
+
+            <Button x:Name="button_delete_cars" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Delete cars"
+                Background="#023d3b" Foreground="White" Canvas.Left="619"  Canvas.Top="191" Click="button_delete_cars_Click"    />
+
+            <Button x:Name="button_clear_cars" Width="140" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                materialDesign:ButtonAssist.CornerRadius="10" FontSize="15" Content="Clear"
+                Background="#023d3b" Foreground="White" Canvas.Left="802"  Canvas.Top="194" Click="button_clear_cars_Click"    />
+
+
+
+            <DataGrid x:Name="data_cars" Height="334" Canvas.Top="226" Width="1010" IsReadOnly="True"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnWidth="*"  AutoGenerateColumns="False" SelectionChanged="data_cars_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Car_id}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Car_name}"/>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
+                    <DataGridTextColumn Header="Color" Width="160.0" Binding="{Binding colors}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Canvas>
+
+        <Canvas x:Name="can_orders" Grid.Row="1" Grid.Column="1" Loaded="can_orders_Loaded" Visibility="Hidden">
+            <TextBlock Width="68" Height="27" Text="Filter By:" FontSize="18" Canvas.Left="10" Canvas.Top="194" />
+            <TextBox x:Name="text_search_orders" Width="131" Height="31"  BorderBrush="{DynamicResource MaterialDesignDivider}" FontSize="15" Canvas.Left="83" Canvas.Top="191" BorderThickness="2" TextChanged="text_search_orders_TextChanged" />
+
+
+            <TextBlock Text="Client Name:" FontSize="25" FontFamily="Arial" Canvas.Top="35" />
+            <TextBox x:Name="txt_orders_Client_name" FontSize="25" Width="260" Height="40" Canvas.Left="149" Canvas.Top="24" />
+
+            <TextBlock Text="Email:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="30" />
+            <TextBox x:Name="txt_orders_Email" FontSize="25" Width="250" Height="35" Canvas.Left="529" Canvas.Top="24" />
+
+            <TextBlock Text="Client ID:" FontSize="25" FontFamily="Arial" Canvas.Left="784" Canvas.Top="35" />
+            <TextBox x:Name="txt_orders_Client_ID" FontSize="25" Width="108" Height="35" Canvas.Left="892" Canvas.Top="24" />
+
+            <TextBlock Text="Car Name:" FontSize="25" FontFamily="Arial" Canvas.Top="80" />
+            <TextBox x:Name="txt_orders_car_name" FontSize="25" Width="260" Height="40" Canvas.Left="149" Canvas.Top="69" />
+
+            <TextBlock Text="Model:" FontSize="30" FontFamily="Arial" Canvas.Left="434" Canvas.Top="75" />
+            <TextBox x:Name="txt_orders_Model" FontSize="25" Width="250" Height="35" Canvas.Left="529" Canvas.Top="69" />
+
+            <TextBlock Text="Car ID:" FontSize="25" FontFamily="Arial" Canvas.Left="784" Canvas.Top="80" />
+            <TextBox x:Name="txt_orders_car_ID" FontSize="25" Width="137" Height="35" Canvas.Left="863" Canvas.Top="69" />
+
+            <TextBlock Text="Date start:" FontSize="25" FontFamily="Arial" Canvas.Top="125" Width="121" />
+            <TextBox x:Name="txt_orders_datestart" FontSize="25" Width="260" Height="40" Canvas.Left="149" Canvas.Top="114" />
+
+            <TextBlock Text="Date end:" FontSize="25" FontFamily="Arial" Canvas.Left="416" Canvas.Top="125" />
+            <TextBox x:Name="txt_orders_datend" FontSize="25" Width="250" Height="35" Canvas.Left="529" Canvas.Top="114" />
+
+            <TextBlock Text="Price:" FontSize="25" FontFamily="Arial" Canvas.Left="784" Canvas.Top="125" />
+            <TextBox x:Name="txt_orders_price" FontSize="25" Width="137" Height="35" Canvas.Left="863" Canvas.Top="114" />
+
+
+            <DataGrid x:Name="data_orders" Height="334" Canvas.Top="226" Width="1010" IsReadOnly="True"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnWidth="*"  AutoGenerateColumns="False" SelectionChanged="data_orders_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Clinet ID" Binding="{Binding CLient_id}"/>
+                    <DataGridTextColumn Header="Clinet Name" Binding="{Binding Client_name}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Car ID"  Binding="{Binding Car_id}"/>
+                    <DataGridTextColumn Header="Car name" Binding="{Binding Car_name}"/>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
+                    <DataGridTextColumn Header="Order Id" Binding="{Binding Order_id}"/>
+                    <DataGridTextColumn Header="Date start"  Binding="{Binding Date_start}"/>
+                    <DataGridTextColumn Header="Date end" Binding="{Binding Date_end}"/>
+                    <DataGridTextColumn Header="Price"  Binding="{Binding price}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Canvas>
+
+        <Canvas x:Name="can_orders_add" Grid.Row="1" Grid.Column="1"  Visibility="Hidden">
+            <TextBlock Text="Client Name:" FontSize="25" FontFamily="Arial" Canvas.Top="91" Canvas.Left="10" />
+            <TextBox x:Name="txt_orders_Client_add_name" FontSize="25" Width="252" Height="40" Canvas.Left="159" Canvas.Top="80" />
+
+            <TextBlock Text="Email:" FontSize="30" FontFamily="Arial" Canvas.Left="10" Canvas.Top="148" />
+            <TextBox x:Name="txt_orders_add_Email" FontSize="25" Width="306" Height="35" Canvas.Left="105" Canvas.Top="142" />
+
+            <TextBlock Text="Client ID:" FontSize="25" FontFamily="Arial" Canvas.Left="10" Canvas.Top="30" />
+            <TextBox x:Name="txt_orders_add_Client_ID" FontSize="25" Width="252" Height="35" Canvas.Left="159" Canvas.Top="19" TextChanged="txt_orders_add_Client_ID_TextChanged" />
+
+            <TextBlock Text="Car Name:" FontSize="25" FontFamily="Arial" Canvas.Top="91" Canvas.Left="450" />
+            <TextBox x:Name="txt_orders_add_car_name" FontSize="25" Width="260" Height="40" Canvas.Left="576" Canvas.Top="80" />
+
+            <TextBlock Text="Model:" FontSize="30" FontFamily="Arial" Canvas.Left="450" Canvas.Top="155" />
+            <TextBox x:Name="txt_orders_add_Model" FontSize="25" Width="260" Height="35" Canvas.Left="576" Canvas.Top="149" />
+
+            <TextBlock Text="Car ID:" FontSize="25" FontFamily="Arial" Canvas.Left="450" Canvas.Top="35" />
+            <TextBox x:Name="txt_orders_add_car_ID" FontSize="25" Width="260" Height="35" Canvas.Left="576" Canvas.Top="19" TextChanged="txt_orders_add_car_ID_TextChanged" />
+
+            <TextBlock Text="Date start:" FontSize="25" FontFamily="Arial" Canvas.Top="299" Width="121" Canvas.Left="2" />
+
+            <TextBlock Text="Date end:" FontSize="25" FontFamily="Arial" Canvas.Left="388" Canvas.Top="305" />
+
+            <TextBlock Text="Price:" FontSize="25" FontFamily="Arial" Canvas.Top="303" Canvas.Left="761" />
+            <TextBox x:Name="txt_orders_add_price" FontSize="25" Width="137" Height="35" Canvas.Left="830" Canvas.Top="293" />
+
+            <TextBlock Text="Phone:" FontSize="30" FontFamily="Arial" Canvas.Left="10" Canvas.Top="208" />
+            <TextBox x:Name="txt_orders_add_phone" FontSize="25" Width="306" Height="35" Canvas.Left="105" Canvas.Top="202" />
+
+            <TextBlock Text="Color:" FontSize="30" FontFamily="Arial" Canvas.Left="450" Canvas.Top="208" />
+            <TextBox x:Name="txt_orders_add_color" FontSize="25" Width="260" Height="35" Canvas.Left="576" Canvas.Top="202" />
+            <DatePicker x:Name="txt_dates" Canvas.Left="123" Canvas.Top="305" Width="260"/>
+            <DatePicker x:Name="txt_dateen" Canvas.Left="496" Canvas.Top="303" Width="260"/>
+
+            <Button x:Name="btu_add" Content="Add"  BorderBrush="Black"   materialDesign:ShadowAssist.ShadowDepth="Depth0" BorderThickness="2" Background="White" Foreground="Black" FontSize="18"  Width="304" Canvas.Left="366" Canvas.Top="424" materialDesign:ButtonAssist.CornerRadius="7" Click="btu_login_Click" Height="40" />
+
+
+        </Canvas>
+
+    </Grid>
+</Window>

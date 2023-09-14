@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ZahardCarsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="Admin_id" />
+          </Key>
+          <Property Name="Admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Admin_name" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Admin_type" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Car_id" />
+          </Key>
+          <Property Name="Car_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Car_name" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Model" Type="int" Nullable="false" />
+          <Property Name="colors" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_name" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="Adress" Type="varchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ZahardCarsDB.dbo.costs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="costs">
+          <Key>
+            <PropertyRef Name="taxes" />
+            <PropertyRef Name="maintenance" />
+            <PropertyRef Name="electricity" />
+            <PropertyRef Name="others" />
+          </Key>
+          <Property Name="taxes" Type="int" Nullable="false" />
+          <Property Name="maintenance" Type="int" Nullable="false" />
+          <Property Name="electricity" Type="int" Nullable="false" />
+          <Property Name="others" Type="int" Nullable="false" />
+          <Property Name="months" Type="date" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Car_id" Type="int" Nullable="false" />
+          <Property Name="Client_id" Type="int" Nullable="false" />
+          <Property Name="Date_start" Type="date" Nullable="false" />
+          <Property Name="Date_end" Type="date" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="Worker_id" />
+          </Key>
+          <Property Name="Worker_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Worker_name" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="Salary" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ZahardCarsDB.dbo.oreder_custm' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="oreder_custm">
+          <Key>
+            <PropertyRef Name="CLient_id" />
+            <PropertyRef Name="Client_name" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Car_id" />
+            <PropertyRef Name="Car_name" />
+            <PropertyRef Name="Model" />
+            <PropertyRef Name="Order_id" />
+            <PropertyRef Name="Date_start" />
+            <PropertyRef Name="Date_end" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="CLient_id" Type="int" Nullable="false" />
+          <Property Name="Client_name" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="Car_id" Type="int" Nullable="false" />
+          <Property Name="Car_name" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Model" Type="int" Nullable="false" />
+          <Property Name="Order_id" Type="int" Nullable="false" />
+          <Property Name="Date_start" Type="date" Nullable="false" />
+          <Property Name="Date_end" Type="date" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="order_car_fk">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Car_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Car_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="order_Client_fk">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZahardCarsDBModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="costs" EntityType="Self.costs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [costs].[taxes] AS [taxes], 
+    [costs].[maintenance] AS [maintenance], 
+    [costs].[electricity] AS [electricity], 
+    [costs].[others] AS [others], 
+    [costs].[months] AS [months]
+    FROM [dbo].[costs] AS [costs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="oreder_custm" EntityType="Self.oreder_custm" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [oreder_custm].[CLient_id] AS [CLient_id], 
+    [oreder_custm].[Client_name] AS [Client_name], 
+    [oreder_custm].[Email] AS [Email], 
+    [oreder_custm].[Car_id] AS [Car_id], 
+    [oreder_custm].[Car_name] AS [Car_name], 
+    [oreder_custm].[Model] AS [Model], 
+    [oreder_custm].[Order_id] AS [Order_id], 
+    [oreder_custm].[Date_start] AS [Date_start], 
+    [oreder_custm].[Date_end] AS [Date_end], 
+    [oreder_custm].[price] AS [price]
+    FROM [dbo].[oreder_custm] AS [oreder_custm]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="order_car_fk" Association="Self.order_car_fk">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="order_Client_fk" Association="Self.order_Client_fk">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZahardCarsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Admin_id" />
+          </Key>
+          <Property Name="Admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Admin_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_type" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Car_id" />
+          </Key>
+          <Property Name="Car_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Car_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model" Type="Int32" Nullable="false" />
+          <Property Name="colors" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.order_car_fk" FromRole="Cars" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.order_Client_fk" FromRole="Client" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Car_id" Type="Int32" Nullable="false" />
+          <Property Name="Client_id" Type="Int32" Nullable="false" />
+          <Property Name="Date_start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_end" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Car" Relationship="Self.order_car_fk" FromRole="Orders" ToRole="Cars" />
+          <NavigationProperty Name="Client" Relationship="Self.order_Client_fk" FromRole="Orders" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Worker_id" />
+          </Key>
+          <Property Name="Worker_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Worker_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cost">
+          <Key>
+            <PropertyRef Name="taxes" />
+            <PropertyRef Name="maintenance" />
+            <PropertyRef Name="electricity" />
+            <PropertyRef Name="others" />
+          </Key>
+          <Property Name="taxes" Type="Int32" Nullable="false" />
+          <Property Name="maintenance" Type="Int32" Nullable="false" />
+          <Property Name="electricity" Type="Int32" Nullable="false" />
+          <Property Name="others" Type="Int32" Nullable="false" />
+          <Property Name="months" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="oreder_custm">
+          <Key>
+            <PropertyRef Name="CLient_id" />
+            <PropertyRef Name="Client_name" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Car_id" />
+            <PropertyRef Name="Car_name" />
+            <PropertyRef Name="Model" />
+            <PropertyRef Name="Order_id" />
+            <PropertyRef Name="Date_start" />
+            <PropertyRef Name="Date_end" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="CLient_id" Type="Int32" Nullable="false" />
+          <Property Name="Client_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Car_id" Type="Int32" Nullable="false" />
+          <Property Name="Car_name" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model" Type="Int32" Nullable="false" />
+          <Property Name="Order_id" Type="Int32" Nullable="false" />
+          <Property Name="Date_start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_end" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="order_car_fk">
+          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Car_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Car_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="order_Client_fk">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZahardCarsDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Workers" EntityType="Self.Worker" />
+          <EntitySet Name="costs" EntityType="Self.cost" />
+          <EntitySet Name="oreder_custm" EntityType="Self.oreder_custm" />
+          <AssociationSet Name="order_car_fk" Association="Self.order_car_fk">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="order_Client_fk" Association="Self.order_Client_fk">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZahardCarsDBModelStoreContainer" CdmEntityContainer="ZahardCarsDBEntities1">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.Admin">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="Admin_id" ColumnName="Admin_id" />
+                <ScalarProperty Name="Admin_name" ColumnName="Admin_name" />
+                <ScalarProperty Name="Admin_type" ColumnName="Admin_type" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="Car_id" ColumnName="Car_id" />
+                <ScalarProperty Name="Car_name" ColumnName="Car_name" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="colors" ColumnName="colors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Client_name" ColumnName="Client_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Car_id" ColumnName="Car_id" />
+                <ScalarProperty Name="Client_id" ColumnName="Client_id" />
+                <ScalarProperty Name="Date_start" ColumnName="Date_start" />
+                <ScalarProperty Name="Date_end" ColumnName="Date_end" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.Worker">
+              <MappingFragment StoreEntitySet="Workers">
+                <ScalarProperty Name="Worker_id" ColumnName="Worker_id" />
+                <ScalarProperty Name="Worker_name" ColumnName="Worker_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="costs">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.cost">
+              <MappingFragment StoreEntitySet="costs">
+                <ScalarProperty Name="taxes" ColumnName="taxes" />
+                <ScalarProperty Name="maintenance" ColumnName="maintenance" />
+                <ScalarProperty Name="electricity" ColumnName="electricity" />
+                <ScalarProperty Name="others" ColumnName="others" />
+                <ScalarProperty Name="months" ColumnName="months" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oreder_custm">
+            <EntityTypeMapping TypeName="ZahardCarsDBModel.oreder_custm">
+              <MappingFragment StoreEntitySet="oreder_custm">
+                <ScalarProperty Name="CLient_id" ColumnName="CLient_id" />
+                <ScalarProperty Name="Client_name" ColumnName="Client_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Car_id" ColumnName="Car_id" />
+                <ScalarProperty Name="Car_name" ColumnName="Car_name" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Order_id" ColumnName="Order_id" />
+                <ScalarProperty Name="Date_start" ColumnName="Date_start" />
+                <ScalarProperty Name="Date_end" ColumnName="Date_end" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

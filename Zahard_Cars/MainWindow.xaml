@@ -1,0 +1,78 @@
+﻿<Window x:Class="Zahard_Cars.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:local="clr-namespace:Zahard_Cars"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="520" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Activated="Window_Activated">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/b.jpg"/>
+        </Grid.Background>
+        <Canvas Width="300" Height="438" Margin="450,50">
+            <Rectangle Height="438" Width="300" Fill="Black" Opacity="0.5" RadiusX="15" RadiusY="15"/>
+            <Button x:Name="btu_sign_up" Content="Sign up" Style="{StaticResource MaterialDesignOutlinedButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" BorderThickness="0" Foreground="White" FontSize="18" Background="{x:Null}" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Click="btu_sign_up_Click" />
+            <Rectangle Height="30" Width="1" Fill="White" Canvas.Left="98"/>
+
+            <Button x:Name="btu_sign_in" Content="Sign in" Style="{StaticResource MaterialDesignOutlinedButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" BorderThickness="0" Foreground="White" FontSize="18" Background="{x:Null}" FontWeight="Bold" FontFamily="Microsoft Sans Serif" Canvas.Left="100" Click="btu_sign_in_Click"/>
+
+            <Canvas x:Name="can_up" Width="300" Height="370" Canvas.Top="40" >
+                <TextBox x:Name="txt_up_username" Width="240" Canvas.Top="50" Canvas.Left="30"
+                         materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Username"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                           Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <PasswordBox x:Name="txt_up_password" Width="240" Canvas.Top="128" Canvas.Left="30"
+                             materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Password"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+
+                <CheckBox x:Name="Check_show" Content="Show password" FontSize="15"  Foreground="White" Canvas.Left="30" Canvas.Top="180" Background="White" Checked="Check_show_Checked" Unchecked="Check_show_Unchecked" />
+
+                <Button x:Name="btu_login" Content="Sign in"  BorderBrush="Black"   materialDesign:ShadowAssist.ShadowDepth="Depth0" BorderThickness="2" Background="White" Foreground="Black" FontSize="18"  Width="170" Canvas.Left="70" Canvas.Top="218" materialDesign:ButtonAssist.CornerRadius="7" Click="btu_login_Click" />
+                
+                <TextBox x:Name="txt_up_pass_Copy" Width="240" Canvas.Top="128" Canvas.Left="30" Visibility="Hidden"
+                    materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Username"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            </Canvas>
+
+            <Canvas x:Name="can_in" Width="300" Height="398" Canvas.Top="40" Visibility="Hidden">
+                <TextBox x:Name="txt_in_username" Width="240" Canvas.Top="50" Canvas.Left="30"
+                         materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Username"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                           Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <PasswordBox x:Name="txt_in_password" Width="240" Canvas.Top="107" Canvas.Left="30"
+                             materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Password"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+
+                <Button x:Name="btu_signup" Content="Sign up"  BorderBrush="Black"   materialDesign:ShadowAssist.ShadowDepth="Depth0" BorderThickness="2" Background="White" Foreground="Black" FontSize="18"  Width="170" Canvas.Left="66" Canvas.Top="356" materialDesign:ButtonAssist.CornerRadius="7" Click="btu_signin_Click" />
+                <PasswordBox x:Name="txt_rewrite_passwords" Width="240" Canvas.Top="164" Canvas.Left="30"
+                    materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Rewite Password"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                    Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                <ComboBox x:Name="cmb_type" Canvas.Left="30" Canvas.Top="10" Width="138" Foreground="White" FontSize="18">
+                    <ComboBoxItem Content="Worker" Foreground="Black" IsSelected="True"/>
+                    <ComboBoxItem Content="Manager" Foreground="Black"/>
+                </ComboBox>
+
+                <TextBlock Text="Username and password For one" Foreground="White" Canvas.Left="48" Canvas.Top="221" />
+
+                <TextBox x:Name="txt_in_username_man" Width="240" Canvas.Top="242" Canvas.Left="30"
+                    materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Username"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <PasswordBox x:Name="txt_in_password_man" Width="240" Canvas.Top="299" Canvas.Left="30"
+                    materialDesign:HintAssist.FontFamily="Microsoft Sans Serif" materialDesign:HintAssist.Hint="Password"  BorderThickness="2" Foreground="White" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Top"  
+                    Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+            </Canvas>
+
+
+        </Canvas>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="394,188,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click" Visibility="Hidden"/>
+
+
+
+    </Grid>
+</Window>
